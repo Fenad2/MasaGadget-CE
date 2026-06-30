@@ -45,10 +45,6 @@ preprocess {
     mc12103_fabric.link(mc12104_fabric, file("versions/mapping-fabric-1.21.3-1.21.4.txt"))
     mc12104_fabric.link(mc12105_fabric, file("versions/mapping-fabric-1.21.4-1.21.5.txt"))
     mc12105_fabric.link(mc12108_fabric, file("versions/mapping-fabric-1.21.5-1.21.8.txt"))
-
-    // NeoForge
-    Node mc12101_neoforge = createNode("1.21.1-neoforge", 1_21_01, "mojang")
-    mc12101_fabric.link(mc12101_neoforge, file("versions/mapping-1.21.1-fabric-neoforge.txt"))
 }
 
 ext {

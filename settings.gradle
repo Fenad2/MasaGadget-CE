@@ -22,11 +22,6 @@ pluginManagement {
         }
 
         maven {
-            name = "NeoForge"
-            url = "https://maven.neoforged.net/releases"
-        }
-
-        maven {
             name = "Jitpack"
             url = "https://jitpack.io"
         }

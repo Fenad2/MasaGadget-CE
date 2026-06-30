@@ -32,16 +32,6 @@ import java.lang.reflect.Method;
 import java.util.function.Function;
 //#endif
 
-//#if NEO_FORGE
-//$$ import lombok.AllArgsConstructor;
-//$$ import net.neoforged.fml.ModContainer;
-//$$ import net.neoforged.fml.ModList;
-//$$ import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
-//$$ import org.thinkingstudio.mafglib.loader.entrypoints.ConfigScreenEntrypoint;
-//$$
-//$$ import java.util.Optional;
-//#endif
-
 public class FastMasaGuiSwitcher {
     @Getter(lazy = true)
     private static final FastMasaGuiSwitcher instance = new FastMasaGuiSwitcher();
@@ -226,30 +216,5 @@ public class FastMasaGuiSwitcher {
     public ModMenuApiCompat.ConfigScreenFactoryCompat<?> getConfigScreenFactory(IStringValue modName) {
         return this.guiModName.inverse().get(modName);
     }
-    //#endif
-
-    //#if NEO_FORGE
-    //$$ public IStringValue getModName(MasaGadgetScreenFactory configScreenFactory) {
-    //$$     return this.guiModName.get(configScreenFactory);
-    //$$ }
-    //$$
-    //$$ public MasaGadgetScreenFactory getConfigScreenFactory(Class<?> clazz) {
-    //$$     return this.guiClass.get(clazz);
-    //$$ }
-    //$$
-    //$$ public MasaGadgetScreenFactory getConfigScreenFactory(IStringValue modName) {
-    //$$     return this.guiModName.inverse().get(modName);
-    //$$ }
-    //$$
-    //$$ @ApiStatus.Internal
-    //$$ @AllArgsConstructor
-    //$$ public static class MasaGadgetScreenFactory {
-    //$$     private final ModContainer container;
-    //$$     private final IConfigScreenFactory configScreenFactory;
-    //$$
-    //$$     public Screen create(Screen parent) {
-    //$$         return this.configScreenFactory.createScreen(this.container, parent);
-    //$$     }
-    //$$ }
     //#endif
 }
