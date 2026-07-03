@@ -95,6 +95,9 @@ dependencies {
     minecraft("com.mojang:minecraft:${project.property("dependencies.minecraft_version")}")
     mappings(loom.officialMojangMappings())
 
+    // Some dependency source jars still reference javax.annotation during Loom source remap.
+    compileOnly("com.google.code.findbugs:jsr305:3.0.2")
+
     // Lombok
     compileOnly("org.projectlombok:lombok:${project.property("dependencies.lombok_version")}")
     annotationProcessor("org.projectlombok:lombok:${project.property("dependencies.lombok_version")}")
