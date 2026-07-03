@@ -35,8 +35,18 @@ repositories {
     }
 
     maven {
+        name = "NyanMaven Moe Release"
+        url = "https://maven.hendrixshen.moe/releases"
+    }
+
+    maven {
         name = "NyanMaven Mirror"
         url = "https://maven.hendrixshen.top/mirror"
+    }
+
+    maven {
+        name = "NyanMaven Moe Mirror"
+        url = "https://maven.hendrixshen.moe/mirror"
     }
 
     maven {

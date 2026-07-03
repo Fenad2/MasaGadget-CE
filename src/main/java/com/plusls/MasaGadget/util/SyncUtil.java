@@ -36,4 +36,34 @@ public class SyncUtil {
         Entity localEntity = level.getEntity(entity.getId());
         return localEntity == null ? entity : localEntity;
     }
+
+    @SuppressWarnings("unchecked")
+    public static <T extends Entity> T getEntityDataFromIntegratedServer(Entity entity, Class<T> entityClass) {
+        IntegratedServer server = Minecraft.getInstance().getSingleplayerServer();
+
+        if (server == null) {
+            return null;
+        }
+
+        EntityCompat entityCompat = EntityCompat.of(entity);
+
+        ServerLevel level = server.getLevel(
+                //#if MC > 11502
+                entityCompat.getLevel().dimension()
+                //#else
+                //$$ entity.dimension
+                //#endif
+        );
+
+        if (level == null) {
+            return null;
+        }
+
+        Entity localEntity = level.getEntity(entity.getId());
+        if (localEntity == null || !entityClass.isInstance(localEntity)) {
+            return null;
+        }
+
+        return (T) localEntity;
+    }
 }

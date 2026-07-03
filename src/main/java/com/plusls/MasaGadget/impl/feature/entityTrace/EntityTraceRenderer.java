@@ -2,7 +2,6 @@ package com.plusls.MasaGadget.impl.feature.entityTrace;
 
 import com.google.common.collect.Queues;
 import com.plusls.MasaGadget.game.Configs;
-import com.plusls.MasaGadget.util.MiscUtil;
 import com.plusls.MasaGadget.util.RenderUtil;
 import com.plusls.MasaGadget.util.SyncUtil;
 import fi.dy.masa.malilib.util.Color4f;
@@ -11,14 +10,12 @@ import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.npc.Villager;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.ApiStatus;
 import top.hendrixshen.magiclib.MagicLib;
 import top.hendrixshen.magiclib.api.event.minecraft.render.RenderEntityListener;
 import top.hendrixshen.magiclib.api.event.minecraft.render.RenderLevelListener;
 import top.hendrixshen.magiclib.api.render.context.LevelRenderContext;
-import top.hendrixshen.magiclib.api.render.context.RenderContext;
 import top.hendrixshen.magiclib.impl.render.context.EntityRenderContext;
 import top.hendrixshen.magiclib.impl.render.context.RenderGlobal;
 
@@ -60,7 +57,10 @@ public class EntityTraceRenderer implements RenderEntityListener, RenderLevelLis
 
         for (Entity entity : this.queue) {
             if (entity instanceof Villager) {
-                Villager villager = MiscUtil.cast(SyncUtil.syncEntityDataFromIntegratedServer(entity));
+                Villager villager = SyncUtil.getEntityDataFromIntegratedServer(entity, Villager.class);
+                if (villager == null) {
+                    continue;
+                }
 
                 if (Configs.renderVillageHomeTracer.getBooleanValue()) {
                     villager.getBrain().getMemory(MemoryModuleType.HOME).ifPresent(globalPos -> {
