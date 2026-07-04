@@ -249,11 +249,21 @@ base {
     setVersion(project.getModVersion(project.parent))
 }
 
+int targetJavaVersion = mcVersion >= 26_01_00 ? 25 :
+        mcVersion > 12005 ? 21 :
+        mcVersion > 11701 ? 17 :
+        mcVersion > 11605 ? 16 : 8
+
+String archiveVersionLabel = "CE-1.0.0" //版本号
+
 java {
     if (mcVersion >= 26_01_00) {
+        toolchain {
+            languageVersion = JavaLanguageVersion.of(targetJavaVersion)
+        }
         sourceCompatibility = JavaVersion.VERSION_25
         targetCompatibility = JavaVersion.VERSION_25
-    } else if (mcVersion > 11204) {
+    } else if (mcVersion > 12005) {
         sourceCompatibility = JavaVersion.VERSION_21
         targetCompatibility = JavaVersion.VERSION_21
     } else if (mcVersion > 11701) {
@@ -366,19 +376,21 @@ tasks.withType(Javadoc).configureEach { Javadoc task ->
     (task.options as CoreJavadocOptions).addStringOption("Xdoclint:none", "-quiet")
 }
 
+tasks.withType(org.gradle.api.tasks.bundling.AbstractArchiveTask).configureEach { task ->
+    task.archiveVersion.set(archiveVersionLabel)
+}
+
 tasks.withType(JavaCompile).configureEach { JavaCompile task ->
     task.options.encoding = "UTF-8"
 
+    task.options.release.set(targetJavaVersion)
     if (mcVersion >= 26_01_00) {
-        task.options.release.set(25)
-    } else if (mcVersion > 12005) {
-        task.options.release.set(21)
-    } else if (mcVersion > 11701) {
-        task.options.release.set(17)
-    } else if (mcVersion > 11605) {
-        task.options.release.set(16)
-    } else {
-        task.options.release.set(8)
+        task.javaCompiler = javaToolchains.compilerFor {
+            languageVersion = JavaLanguageVersion.of(targetJavaVersion)
+        }
+    }
+
+    if (targetJavaVersion == 8) {
         options.compilerArgs << '-Xlint:-options'
     }
 }
