@@ -2,6 +2,7 @@ import com.replaymod.gradle.preprocess.Node
 
 plugins {
     id("dev.architectury.loom").version("${architectury_loom_version}").apply(false)
+    id("net.fabricmc.fabric-loom").version("${fabric_loom_version}").apply(false)
     id("org.ajoberstar.grgit").version("${grgit_version}")
     id("com.replaymod.preprocess").version("${preprocessor_version}")
     id("me.fallenbreath.yamlang").version("${yamlang_version}").apply(false)
@@ -30,6 +31,7 @@ preprocess {
     Node mc12108_fabric = createNode("1.21.8-fabric", 1_21_08, "mojang")
     Node mc12110_fabric = createNode("1.21.10-fabric", 1_21_10, "mojang")
     Node mc12111_fabric = createNode("1.21.11-fabric", 1_21_11, "mojang")
+    Node mc2601_fabric = createNode("26.1-fabric", 26_01_00, "")
 
     mc11502_fabric.link(mc11404_fabric, file("versions/mapping-fabric-1.15.2-1.14.4.txt"))
     mc11605_fabric.link(mc11502_fabric, file("versions/mapping-fabric-1.16.5-1.15.2.txt"))
@@ -49,6 +51,7 @@ preprocess {
     mc12105_fabric.link(mc12108_fabric, file("versions/mapping-fabric-1.21.5-1.21.8.txt"))
     mc12108_fabric.link(mc12110_fabric, file("versions/mapping-fabric-1.21.8-1.21.10.txt"))
     mc12110_fabric.link(mc12111_fabric, file("versions/mapping-fabric-1.21.10-1.21.11.txt"))
+    mc12111_fabric.link(mc2601_fabric, file("versions/mapping-fabric-1.21.11-26.1.txt"))
 }
 
 ext {

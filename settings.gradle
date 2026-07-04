@@ -23,13 +23,16 @@ pluginManagement {
 
         maven {
             name = "Jitpack"
-            url = "https://jitpack.io"
+            url = "https://maven.fallenbreath.me/jitpack"
+            content {
+                includeGroupAndSubgroups("com.github")
+            }
         }
     }
 
     resolutionStrategy {
-        eachPlugin {
-            switch (requested.id.id) {
+       eachPlugin {
+           switch (requested.id.id) {
                 case "com.replaymod.preprocess": {
                     useModule("com.github.Fallen-Breath:preprocessor:${requested.version}")
                     break
