@@ -1,9 +1,15 @@
 package com.plusls.MasaGadget.impl.gui;
 
 import fi.dy.masa.malilib.gui.widgets.WidgetLabel;
-import fi.dy.masa.malilib.render.RenderUtils;
 import lombok.Getter;
 import lombok.Setter;
+
+//#if MC >= 12111
+//$$ import fi.dy.masa.malilib.render.GuiContext;
+//$$ import top.hendrixshen.magiclib.api.render.context.GuiRenderContext;
+//$$ import top.hendrixshen.magiclib.api.render.context.RenderContext;
+//#else
+import fi.dy.masa.malilib.render.RenderUtils;
 import top.hendrixshen.magiclib.api.render.context.GuiRenderContext;
 import top.hendrixshen.magiclib.api.render.context.RenderContext;
 
@@ -11,6 +17,7 @@ import top.hendrixshen.magiclib.api.render.context.RenderContext;
 //$$ import net.minecraft.client.gui.GuiGraphics;
 //#elseif MC > 11404
 import com.mojang.blaze3d.vertex.PoseStack;
+//#endif
 //#endif
 
 @Getter
@@ -25,7 +32,9 @@ public class ScalableWidgetLabel extends WidgetLabel {
 
     @Override
     public void render(
-            //#if MC >= 12106
+            //#if MC >= 12111
+            //$$ GuiContext guiContext,
+            //#elseif MC >= 12106
             //$$ GuiGraphics guiGraphicsOrPoseStack,
             //#endif
             int mouseX,
@@ -39,6 +48,60 @@ public class ScalableWidgetLabel extends WidgetLabel {
             //#endif
             //#endif
     ) {
+        //#if MC >= 12111
+        //$$ if (!this.visible) {
+        //$$     return;
+        //$$ }
+        //$$
+        //$$ this.drawLabelBackground(guiContext);
+        //#if MC >= 260100
+        //$$ int fontHeight = this.fontHeight;
+        //$$ int yCenter = this.y + this.height / 2 + this.borderSize / 2;
+        //$$ int yTextStart = yCenter - 1 - this.labels.size() * fontHeight / 2;
+        //$$
+        //$$ for (int i = 0; i < this.labels.size(); i++) {
+        //$$     String text = this.labels.get(i);
+        //$$     double x = this.x + (this.centered ? this.width / 2.0 : 0);
+        //$$     double y = yTextStart + i * fontHeight * scale;
+        //$$     guiContext.pose().pushMatrix();
+        //$$     guiContext.pose().scale(scale, scale);
+        //$$     x /= scale;
+        //$$     y /= scale;
+        //$$
+        //$$     if (this.centered) {
+        //$$         this.drawCenteredStringWithShadow(guiContext, (int) x, (int) y, this.textColor, text);
+        //$$     } else {
+        //$$         this.drawStringWithShadow(guiContext, (int) x, (int) y, this.textColor, text);
+        //$$     }
+        //$$
+        //$$     guiContext.pose().popMatrix();
+        //$$ }
+        //#else
+        //$$ GuiRenderContext renderContext = RenderContext.gui(guiContext.getGuiGraphics());
+        //$$
+        //$$ int fontHeight = this.fontHeight;
+        //$$ int yCenter = this.y + this.height / 2 + this.borderSize / 2;
+        //$$ int yTextStart = yCenter - 1 - this.labels.size() * fontHeight / 2;
+        //$$
+        //$$ for (int i = 0; i < this.labels.size(); i++) {
+        //$$     String text = this.labels.get(i);
+        //$$     double x = this.x + (this.centered ? this.width / 2.0 : 0);
+        //$$     double y = yTextStart + i * fontHeight * scale;
+        //$$     renderContext.pushMatrix();
+        //$$     renderContext.scale(scale, scale);
+        //$$     x /= scale;
+        //$$     y /= scale;
+        //$$
+        //$$     if (this.centered) {
+        //$$         this.drawCenteredStringWithShadow(guiContext, (int) x, (int) y, this.textColor, text);
+        //$$     } else {
+        //$$         this.drawStringWithShadow(guiContext, (int) x, (int) y, this.textColor, text);
+        //$$     }
+        //$$
+        //$$     renderContext.popMatrix();
+        //$$ }
+        //#endif
+        //#else
         if (this.visible) {
             //#if MC < 12105
             RenderUtils.setupBlend();
@@ -98,5 +161,6 @@ public class ScalableWidgetLabel extends WidgetLabel {
                 renderContext.popMatrix();
             }
         }
+        //#endif
     }
 }

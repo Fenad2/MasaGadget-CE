@@ -3,16 +3,26 @@ package com.plusls.MasaGadget.impl.gui;
 import com.plusls.MasaGadget.SharedConstants;
 import fi.dy.masa.malilib.gui.interfaces.IGuiIcon;
 import fi.dy.masa.malilib.render.RenderUtils;
+
+//#if MC >= 12111
+//$$ import fi.dy.masa.malilib.render.GuiContext;
+//$$ import net.minecraft.resources.Identifier;
+//#else
 import net.minecraft.resources.ResourceLocation;
 
 //#if MC > 12101
 //$$ import net.minecraft.client.gui.GuiGraphics;
 //#endif
+//#endif
 
 public enum MasaGadgetIcons implements IGuiIcon {
     FAVORITE(0, 0, 16, 16, 16, 16);
 
+    //#if MC >= 12111
+    //$$ public static final Identifier TEXTURE = SharedConstants.id("textures/gui/gui_widgets.png");
+    //#else
     public static final ResourceLocation TEXTURE = SharedConstants.id("textures/gui/gui_widgets.png");
+    //#endif
 
     private final int u;
     private final int v;
@@ -52,7 +62,9 @@ public enum MasaGadgetIcons implements IGuiIcon {
 
     @Override
     public void renderAt(
-            //#if MC >= 12106
+            //#if MC >= 12111
+            //$$ GuiContext guiContext,
+            //#elseif MC >= 12106
             //$$ GuiGraphics guiGraphics,
             //#endif
             int x,
@@ -75,6 +87,9 @@ public enum MasaGadgetIcons implements IGuiIcon {
             v += this.hoverOffV;
         }
 
+        //#if MC >= 12111
+        //$$ RenderUtils.drawTexturedRect(guiContext, this.getTexture(), x, y, u, v, this.w, this.h, zLevel);
+        //#else
         RenderUtils.drawTexturedRect(
                 //#if MC >= 12106
                 //$$ guiGraphics,
@@ -93,10 +108,15 @@ public enum MasaGadgetIcons implements IGuiIcon {
                 //$$ , guiGraphics
                 //#endif
         );
+        //#endif
     }
 
     @Override
+    //#if MC >= 12111
+    //$$ public Identifier getTexture() {
+    //#else
     public ResourceLocation getTexture() {
+    //#endif
         return MasaGadgetIcons.TEXTURE;
     }
 }

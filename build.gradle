@@ -89,6 +89,10 @@ ext {
         return env.GITHUB_RUN_NUMBER ? env.GITHUB_RUN_NUMBER : 0
     }
 
+    getFixedModVersion = {
+        return "CE-1.0.0"
+    }
+
     getVersionGit = { List paths ->
         if (grgit == null || grgit.head() == null) {
             return "nogit"
@@ -133,19 +137,19 @@ ext {
     }
 
     getVersion = { Project proj ->
-        return "${proj.property("mod.version")}.${getVersionPatch(proj == rootProject ? [] : [proj.projectDir.name])}"
+        return getFixedModVersion()
     }
 
     getVersionWithCommitHash = { Project proj ->
-        return "${getVersion(proj)}+${getVersionGit(proj == rootProject ? [] : [proj.projectDir.name])}-${getVersionType()}"
+        return getFixedModVersion()
     }
 
     getModVersion = { Project proj ->
-        return "${getVersion(proj)}-${getVersionType()}"
+        return getFixedModVersion()
     }
 
     getMavenArtifactVersion = { Project proj ->
-        return project.getVersionType() == "stable" ? "${getVersion(proj)}" : "${getModVersion(proj)}"
+        return getFixedModVersion()
     }
 }
 

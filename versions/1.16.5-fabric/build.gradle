@@ -289,7 +289,9 @@ replaceToken {
 }
 
 processResources {
+    String fabricLoaderDependency = project.findProperty("dependencies.fabricloader_dependency") ?: ">=0.16.0"
     inputs.property("magiclib_dependency" , project.property("dependencies.magiclib_dependency"))
+    inputs.property("fabricloader_dependency", fabricLoaderDependency)
     inputs.property("minecraft_dependency", project.property("dependencies.minecraft_dependency"))
     inputs.property("mod_alias"           , project.parent.property("mod.id"))
     inputs.property("mod_description"     , project.parent.property("mod.description"))
@@ -308,6 +310,7 @@ processResources {
         if (platforms.contains(modPlatform)) {
             filesMatching(file) {
                 expand([
+                        "fabricloader_dependency": inputs.properties.get("fabricloader_dependency"),
                         "magiclib_dependency" : inputs.properties.get("magiclib_dependency"),
                         "minecraft_dependency": inputs.properties.get("minecraft_dependency"),
                         "mod_alias"           : inputs.properties.get("mod_alias"),

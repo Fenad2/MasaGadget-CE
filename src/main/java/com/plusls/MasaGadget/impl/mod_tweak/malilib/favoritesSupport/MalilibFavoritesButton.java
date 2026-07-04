@@ -8,7 +8,9 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Consumer;
 
-//#if MC > 11904
+//#if MC >= 12111
+//$$ import fi.dy.masa.malilib.render.GuiContext;
+//#elseif MC > 11904
 //$$ import net.minecraft.client.gui.GuiGraphics;
 //#elseif MC > 11502
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -34,7 +36,17 @@ public class MalilibFavoritesButton extends WidgetHoverInfo {
         return new MalilibFavoritesButton(x, y, MasaGadgetIcons.FAVORITE, defaultStatus, onPress, tooltipSupplier);
     }
 
-    //#if MC >= 12106
+    //#if MC >= 12111
+    //$$ @Override
+    //$$ public void render(GuiContext guiContext, int mouseX, int mouseY, boolean selected) {
+    //$$     this.icon.renderAt(guiContext, this.x, this.y, (float) this.zLevel, this.status, this.isMouseOver(mouseX, mouseY));
+    //$$
+    //$$     if (this.isMouseOver(mouseX, mouseY)) {
+    //$$         RenderUtils.drawOutlinedBox(guiContext, this.x, this.y, this.width, this.height, 0x20C0C0C0, -520093697);
+    //$$     }
+    //$$ }
+    //#elseif MC >= 12106
+    //$$ @Override
     //$$ public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, boolean selected) {
     //$$     icon.renderAt(guiGraphics, this.x, this.y, (float) this.zLevel, this.status, this.isMouseOver(mouseX, mouseY));
     //$$

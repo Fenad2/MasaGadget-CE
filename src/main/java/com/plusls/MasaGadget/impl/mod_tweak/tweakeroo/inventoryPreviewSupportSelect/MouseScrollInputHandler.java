@@ -13,6 +13,10 @@ import net.minecraft.world.entity.player.Player;
 import org.jetbrains.annotations.ApiStatus;
 import top.hendrixshen.magiclib.MagicLib;
 
+//#if MC >= 12110
+//$$ import net.minecraft.client.input.MouseButtonEvent;
+//#endif
+
 //#if MC > 11902
 //$$ import net.minecraft.core.registries.BuiltInRegistries;
 //#else
@@ -29,7 +33,16 @@ public class MouseScrollInputHandler implements IMouseInputHandler {
     }
 
     @Override
-    public boolean onMouseScroll(int mouseX, int mouseY, double amount) {
+    public boolean onMouseScroll(
+            //#if MC >= 12110
+            //$$ double mouseX,
+            //$$ double mouseY,
+            //#else
+            int mouseX,
+            int mouseY,
+            //#endif
+            double amount
+    ) {
         Player player = Minecraft.getInstance().player;
 
         if (!MagicLib.getInstance().getCurrentPlatform().isModLoaded(ModId.tweakeroo) ||
@@ -54,16 +67,29 @@ public class MouseScrollInputHandler implements IMouseInputHandler {
                 //#else
                 !Registry.ITEM.getKey(player.getMainHandItem().getItem()).toString()
                         .contains(fi.dy.masa.litematica.config.Configs.Generic.TOOL_ITEM.getStringValue());
-        //#endif
+                //#endif
     }
 
     @Override
-    public boolean onMouseClick(int mouseX, int mouseY, int eventButton, boolean eventButtonState) {
+    public boolean onMouseClick(
+            //#if MC >= 12110
+            //$$ MouseButtonEvent event,
+            //#else
+            int mouseX,
+            int mouseY,
+            int eventButton,
+            //#endif
+            boolean eventButtonState
+    ) {
         if (MagicLib.getInstance().getCurrentPlatform().isModLoaded(ModId.tweakeroo) &&
                 Configs.inventoryPreviewSupportSelect.getBooleanValue() &&
                 FeatureToggle.TWEAK_INVENTORY_PREVIEW.getBooleanValue() &&
                 Hotkeys.INVENTORY_PREVIEW.getKeybind().isKeybindHeld() &&
+                //#if MC >= 12110
+                //$$ event.button() == 2 &&
+                //#else
                 eventButton == 2 &&
+                //#endif
                 eventButtonState) {
             InventoryOverlayRenderHandler.getInstance().switchSelectInventory();
         }

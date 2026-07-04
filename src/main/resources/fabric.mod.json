@@ -38,7 +38,7 @@
     "${mod_id}.mixins.json"
   ],
   "depends": {
-    "fabricloader": ">=0.19.2",
+    "fabricloader": "${fabricloader_dependency}",
     "fabric-api": "*",
     "magiclib": ">=${magiclib_dependency}",
     "malilib": "*",
