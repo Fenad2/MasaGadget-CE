@@ -32,6 +32,7 @@ preprocess {
     Node mc12110_fabric = createNode("1.21.10-fabric", 1_21_10, "mojang")
     Node mc12111_fabric = createNode("1.21.11-fabric", 1_21_11, "mojang")
     Node mc2601_fabric = createNode("26.1-fabric", 26_01_00, "")
+    Node mc2602_fabric = createNode("26.2-fabric", 26_02_00, "")
 
     mc11502_fabric.link(mc11404_fabric, file("versions/mapping-fabric-1.15.2-1.14.4.txt"))
     mc11605_fabric.link(mc11502_fabric, file("versions/mapping-fabric-1.16.5-1.15.2.txt"))
@@ -52,6 +53,7 @@ preprocess {
     mc12108_fabric.link(mc12110_fabric, file("versions/mapping-fabric-1.21.8-1.21.10.txt"))
     mc12110_fabric.link(mc12111_fabric, file("versions/mapping-fabric-1.21.10-1.21.11.txt"))
     mc12111_fabric.link(mc2601_fabric, file("versions/mapping-fabric-1.21.11-26.1.txt"))
+    mc2601_fabric.link(mc2602_fabric, file("versions/mapping-fabric-26.1-26.2.txt"))
 }
 
 ext {
