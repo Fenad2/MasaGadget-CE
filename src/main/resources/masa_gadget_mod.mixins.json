@@ -13,6 +13,9 @@
     "accessor.AccessorLivingEntity",
     "accessor.AccessorVillager",
     "accessor.AccessorZombieVillager",
+    //#if MC >= 260200
+    //$$ "compat.magiclib.MixinImmediateTextDrawer",
+    //#endif
     "event.MixinMinecraft",
     "feature.autoSyncEntityData.MixinClientPlayNetworkHandler",
     "feature.autoSyncEntityData.MixinVillagerEntity",

@@ -7,7 +7,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
-
 import fi.dy.masa.malilib.render.MaLiLibPipelines;
 import fi.dy.masa.malilib.render.RenderContext;
 
@@ -24,7 +23,8 @@ public class RenderUtil {
         pos2 = pos2.subtract(camPos);
         RenderContext ctx = new RenderContext(
                 () -> "masa_gadget:line",
-                MaLiLibPipelines.DEBUG_LINES_MASA_SIMPLE_NO_DEPTH_NO_CULL
+                MaLiLibPipelines.DEBUG_LINES_MASA_SIMPLE_NO_DEPTH_NO_CULL,
+                0
         );
 
         try {
@@ -37,7 +37,7 @@ public class RenderUtil {
                     .setLineWidth(1.0F);
 
             MeshData meshData = builder.build();
-        
+
             if (meshData != null) {
                 ctx.draw(meshData, false, true);
                 meshData.close();
@@ -54,7 +54,8 @@ public class RenderUtil {
 
         RenderContext ctx = new RenderContext(
                 () -> "masa_gadget:outline_box",
-                MaLiLibPipelines.DEBUG_LINES_MASA_SIMPLE_NO_DEPTH_NO_CULL
+                MaLiLibPipelines.DEBUG_LINES_MASA_SIMPLE_NO_DEPTH_NO_CULL,
+                0
         );
 
         try {
@@ -72,7 +73,7 @@ public class RenderUtil {
             );
 
             MeshData meshData = builder.build();
-        
+
             if (meshData != null) {
                 ctx.draw(meshData, false, true);
                 meshData.close();
@@ -89,5 +90,4 @@ public class RenderUtil {
         } catch (Exception ignored) {
         }
     }
-
 }
