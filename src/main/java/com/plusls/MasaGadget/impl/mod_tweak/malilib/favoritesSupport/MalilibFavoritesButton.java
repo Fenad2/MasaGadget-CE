@@ -6,6 +6,10 @@ import fi.dy.masa.malilib.gui.widgets.WidgetHoverInfo;
 import fi.dy.masa.malilib.render.RenderUtils;
 import org.jetbrains.annotations.NotNull;
 
+//#if MC >= 12110
+//$$ import net.minecraft.client.input.MouseButtonEvent;
+//#endif
+
 import java.util.function.Consumer;
 
 //#if MC >= 12111
@@ -90,7 +94,18 @@ public class MalilibFavoritesButton extends WidgetHoverInfo {
     }
     //#endif
 
+    //#if MC >= 12110
+    //$$ @Override
+    //$$ protected boolean onMouseClickedImpl(MouseButtonEvent click, boolean doubleClick) {
+    //$$     return this.toggleStatus();
+    //$$ }
+    //#endif
+
     protected boolean onMouseClickedImpl(int mouseX, int mouseY, int mouseButton) {
+        return this.toggleStatus();
+    }
+
+    private boolean toggleStatus() {
         this.status = !this.status;
         this.getLines().clear();
         this.setInfoLines(this.tooltipSupplier.onTooltip(this.status));
