@@ -20,7 +20,7 @@ public class SharedConstants {
     @Getter
     private static final String modName = "Masa Gadget";
     @Getter
-    private static final String modVersion = "4.0.0-mc26.1.2-port";
+    private static final String modVersion = "CE-1.0.2";
     @Getter
     private static final String modVersionType = VersionUtil.getVersionType(SharedConstants.modVersion);
     @Getter

@@ -90,7 +90,7 @@ ext {
     }
 
     getFixedModVersion = {
-        return "CE-1.0.0"
+        return "CE-1.0.2" //版本号！！ + 记得改archiveVersionLabel的版本号。 接下来再统一一下版本号修改方式，然后加上26.1~26.2
     }
 
     getVersionGit = { List paths ->

@@ -254,7 +254,7 @@ int targetJavaVersion = mcVersion >= 26_01_00 ? 25 :
         mcVersion > 11701 ? 17 :
         mcVersion > 11605 ? 16 : 8
 
-String archiveVersionLabel = "CE-1.0.2" //版本号
+String archiveVersionLabel = "CE-1.0.2" //版本号 + 记得改getFixedModVersion的版本号
 
 java {
     if (mcVersion >= 26_01_00) {
