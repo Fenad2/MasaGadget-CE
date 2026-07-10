@@ -49,7 +49,7 @@ public class EntityInfoRenderer implements RenderLevelListener {
                     (Configs.renderNextRestockTime.getBooleanValue() || Configs.renderTradeEnchantedBook.getBooleanValue())) {
                 Villager villager = SyncUtil.getEntityDataFromIntegratedServer(villagerEntity, Villager.class);
                 if (villager == null) {
-                    continue;
+                    villager = villagerEntity;  //多人服务器回退到当前客户端实体
                 }
 
                 TextRenderer renderer = TextRenderer.create();
@@ -81,7 +81,7 @@ public class EntityInfoRenderer implements RenderLevelListener {
                     Configs.renderZombieVillagerConvertTime.getBooleanValue()) {
                 ZombieVillager zombieVillager = SyncUtil.getEntityDataFromIntegratedServer(zombieVillagerEntity, ZombieVillager.class);
                 if (zombieVillager == null) {
-                    continue;
+                    zombieVillager = zombieVillagerEntity; //多人服务器回退到当前客户端实体
                 }
 
                 EntityInfoRenderer.rotationAround(TextRenderer.create(), entity.getEyePosition(partialTick), 0.6)

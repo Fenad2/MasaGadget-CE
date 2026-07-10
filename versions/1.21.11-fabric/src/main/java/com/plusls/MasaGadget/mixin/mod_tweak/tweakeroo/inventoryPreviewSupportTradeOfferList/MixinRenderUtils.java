@@ -2,6 +2,7 @@ package com.plusls.MasaGadget.mixin.mod_tweak.tweakeroo.inventoryPreviewSupportT
 
 import com.plusls.MasaGadget.game.Configs;
 import com.plusls.MasaGadget.impl.generic.HitResultHandler;
+import com.plusls.MasaGadget.mixin.accessor.AccessorAbstractVillager;
 import com.plusls.MasaGadget.util.ModId;
 import com.plusls.MasaGadget.util.VillagerDataUtil;
 import fi.dy.masa.malilib.render.GuiContext;
@@ -17,6 +18,7 @@ import net.minecraft.world.entity.npc.villager.Villager;
 import net.minecraft.world.entity.npc.villager.VillagerProfession;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.trading.MerchantOffer;
+import net.minecraft.world.item.trading.MerchantOffers;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -57,7 +59,13 @@ public class MixinRenderUtils {
 
         SimpleContainer simpleInventory = new SimpleContainer(MixinRenderUtils.masa_gadget$maxTradeOfferSize);
 
-        for (MerchantOffer tradeOffer : villager.getOffers()) {
+        MerchantOffers offers = ((AccessorAbstractVillager) villager).masa_gadget_mod$getOffers();
+
+        if (offers == null) {
+            return inv;
+        }
+
+        for (MerchantOffer tradeOffer : offers) {
             for (int i = 0; i < simpleInventory.getContainerSize(); ++i) {
                 ItemStack itemStack = simpleInventory.getItem(i);
 

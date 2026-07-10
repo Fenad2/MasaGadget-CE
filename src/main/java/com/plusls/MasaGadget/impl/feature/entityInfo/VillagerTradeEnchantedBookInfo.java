@@ -1,6 +1,7 @@
 package com.plusls.MasaGadget.impl.feature.entityInfo;
 
 import com.google.common.collect.Lists;
+import com.plusls.MasaGadget.mixin.accessor.AccessorAbstractVillager;
 import com.plusls.MasaGadget.util.PcaSyncProtocol;
 import com.plusls.MasaGadget.util.VillagerDataUtil;
 import net.minecraft.ChatFormatting;
@@ -13,6 +14,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.trading.MerchantOffer;
+import net.minecraft.world.item.trading.MerchantOffers;
 import org.jetbrains.annotations.NotNull;
 import top.hendrixshen.magiclib.api.compat.minecraft.world.item.ItemStackCompat;
 import top.hendrixshen.magiclib.util.minecraft.ComponentUtil;
@@ -48,7 +50,14 @@ public class VillagerTradeEnchantedBookInfo {
 
         List<Component> ret = Lists.newArrayList();
 
-        for (MerchantOffer tradeOffer : villager.getOffers()) {
+        //直接读取 PCA 已经写进实体字段里的 offers
+        MerchantOffers offers = ((AccessorAbstractVillager) villager).masa_gadget_mod$getOffers();
+
+        if (offers == null) {
+            return ret;
+        }
+
+        for (MerchantOffer tradeOffer : offers) {
             ItemStack sellItem = tradeOffer.getResult();
             ItemStackCompat sellItemCompat = ItemStackCompat.of(sellItem);
 

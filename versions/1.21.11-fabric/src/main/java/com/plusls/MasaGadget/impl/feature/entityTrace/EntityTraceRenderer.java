@@ -42,7 +42,7 @@ public class EntityTraceRenderer implements RenderLevelListener {
 
             Villager villager = SyncUtil.getEntityDataFromIntegratedServer(villagerEntity, Villager.class);
             if (villager == null) {
-                continue;
+                villager = villagerEntity; //多人服务器回退到当前客户端实体
             }
 
             if (Configs.renderVillageHomeTracer.getBooleanValue()) {

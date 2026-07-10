@@ -250,7 +250,7 @@ public class PcaSyncProtocol {
                     );
                     ((AccessorVillager) entity).masa_gadget_mod$setLastRestockGameTime(
                             //#if MC > 12104
-                            //$$ tag.getLongOr("RestocksToday", 0L)
+                            //$$ tag.getLongOr("LastRestock", 0L)
                             //#else
                             tag.getLong("LastRestock")
                             //#endif
