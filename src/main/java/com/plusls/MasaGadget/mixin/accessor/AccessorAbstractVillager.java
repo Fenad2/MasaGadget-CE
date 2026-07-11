@@ -11,6 +11,8 @@ public interface AccessorAbstractVillager {
     void masa_gadget_mod$setOffers(MerchantOffers offers);
 
     //1.21.11不再允许直接调用 Villager#getOffers()
-    @Accessor("offers")
-    MerchantOffers masa_gadget_mod$getOffers();
+    //#if MC >= 12111
+    //$$ @Accessor("offers")
+    //$$ MerchantOffers masa_gadget_mod$getOffers();
+    //#endif
 }

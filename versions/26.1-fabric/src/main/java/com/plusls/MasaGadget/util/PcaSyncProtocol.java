@@ -196,7 +196,7 @@ public class PcaSyncProtocol {
                             tag.getIntOr("RestocksToday", 0)
                     );
                     ((AccessorVillager) entity).masa_gadget_mod$setLastRestockGameTime(
-                            tag.getLongOr("RestocksToday", 0L)
+                            tag.getLongOr("LastRestock", 0L)
                     );
                     input.read("Brain", Brain.Packed.CODEC).ifPresent(packed ->
                             ((AccessorLivingEntity) entity).masa_gadget_mod$setBrain(
