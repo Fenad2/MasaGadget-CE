@@ -20,7 +20,7 @@ import top.hendrixshen.magiclib.util.minecraft.ComponentUtil;
 import java.util.Collections;
 import java.util.List;
 
-//#if MC >= 12111
+//#if MC >= 12110
 //$$ import com.plusls.MasaGadget.mixin.accessor.AccessorAbstractVillager;
 //$$ import net.minecraft.world.item.trading.MerchantOffers;
 //#endif
@@ -53,7 +53,7 @@ public class VillagerTradeEnchantedBookInfo {
 
         List<Component> ret = Lists.newArrayList();
 
-        //#if MC >= 12111
+        //#if MC >= 12110
         //$$ MerchantOffers offers = ((AccessorAbstractVillager) villager).masa_gadget_mod$getOffers();
         //$$
         //$$ if (offers == null) {

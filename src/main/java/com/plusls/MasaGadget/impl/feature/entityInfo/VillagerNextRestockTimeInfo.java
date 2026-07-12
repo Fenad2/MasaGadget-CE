@@ -12,7 +12,7 @@ import net.minecraft.world.item.trading.MerchantOffer;
 import org.jetbrains.annotations.NotNull;
 import top.hendrixshen.magiclib.util.minecraft.ComponentUtil;
 
-//#if MC >= 12111
+//#if MC >= 12110
 //$$ import com.plusls.MasaGadget.mixin.accessor.AccessorAbstractVillager;
 //$$ import net.minecraft.world.item.trading.MerchantOffers;
 //#endif
@@ -81,7 +81,7 @@ public class VillagerNextRestockTimeInfo {
     // 因为刁民的需要补货的函数，会检查当前货物是否被消耗，从使用的角度只需要关心当前货物是否用完
     private static boolean needsRestock(@NotNull Villager villager) {
         if (VillagerDataUtil.getVillagerProfession(villager) != VillagerProfession.NONE) {
-            //#if MC >= 12111
+            //#if MC >= 12110
             //$$ MerchantOffers offers = ((AccessorAbstractVillager) villager).masa_gadget_mod$getOffers();
             //$$
             //$$ if (offers == null) {

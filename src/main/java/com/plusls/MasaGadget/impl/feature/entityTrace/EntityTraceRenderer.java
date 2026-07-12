@@ -59,7 +59,8 @@ public class EntityTraceRenderer implements RenderEntityListener, RenderLevelLis
             if (entity instanceof Villager) {
                 Villager villager = SyncUtil.getEntityDataFromIntegratedServer(entity, Villager.class);
                 if (villager == null) {
-                    continue;
+                    // 把同步数据写回当前客户端实体。
+                    villager = (Villager) entity;
                 }
 
                 if (Configs.renderVillageHomeTracer.getBooleanValue()) {

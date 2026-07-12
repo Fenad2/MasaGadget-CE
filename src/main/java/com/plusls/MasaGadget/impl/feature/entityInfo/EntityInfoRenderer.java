@@ -69,7 +69,8 @@ public class EntityInfoRenderer implements RenderEntityListener, RenderLevelList
             if (entity instanceof Villager) {
                 Villager villager = SyncUtil.getEntityDataFromIntegratedServer(entity, Villager.class);
                 if (villager == null) {
-                    continue;
+                    // 把同步数据写回当前客户端实体。
+                    villager = (Villager) entity;
                 }
 
                 TextRenderer renderer = TextRenderer.create();
@@ -100,7 +101,8 @@ public class EntityInfoRenderer implements RenderEntityListener, RenderLevelList
             } else if (entity instanceof ZombieVillager) {
                 ZombieVillager zombieVillager = SyncUtil.getEntityDataFromIntegratedServer(entity, ZombieVillager.class);
                 if (zombieVillager == null) {
-                    continue;
+                    // 把同步数据写回当前客户端实体。
+                    zombieVillager = (ZombieVillager) entity;
                 }
 
                 EntityInfoRenderer.rotationAround(TextRenderer.create(), entity.getEyePosition(partialTick), 0.6)
