@@ -9,9 +9,9 @@
 
 
 
-### The original repository of this mod has been updated to the latest build. It is recommended to use releases published from the original repository as your first choice.
+## The original repository of this mod has been updated to the latest build. It is recommended to use releases published from the original repository as your first choice.
 
-### This repository (Masa Gadget-CE) will no longer receive maintenance and updates.
+## This repository (Masa Gadget-CE) will no longer receive maintenance and updates.
 
 Several known issues have been fixed upstream.
 
