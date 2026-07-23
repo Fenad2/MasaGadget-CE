@@ -1,6 +1,8 @@
 package com.plusls.MasaGadget.util;
 
+//#if MC < 260100
 import com.mojang.serialization.Dynamic;
+//#endif
 import com.plusls.MasaGadget.SharedConstants;
 import com.plusls.MasaGadget.api.event.DisconnectListener;
 import com.plusls.MasaGadget.game.Configs;
@@ -22,6 +24,9 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.Mob;
+//#if MC >= 260100
+//$$ import net.minecraft.world.entity.ai.Brain;
+//#endif
 import net.minecraft.world.entity.animal.horse.AbstractHorse;
 import net.minecraft.world.entity.monster.ZombieVillager;
 import net.minecraft.world.entity.npc.AbstractVillager;
@@ -255,7 +260,15 @@ public class PcaSyncProtocol {
                             tag.getLong("LastRestock")
                             //#endif
                     );
-                    ((AccessorLivingEntity) entity).masa_gadget_mod$setBrain(((AccessorLivingEntity) entity).masa_gadget_mod$makeBrain(new Dynamic<>(NbtOps.INSTANCE, tag.get("Brain"))));
+                    //#if MC >= 260100
+                    //$$ input.read("Brain", Brain.Packed.CODEC).ifPresent(packed ->
+                    //$$         ((AccessorLivingEntity) entity).masa_gadget_mod$setBrain(
+                    //$$                 ((AccessorLivingEntity) entity).masa_gadget_mod$makeBrain(packed)));
+                    //#else
+                    ((AccessorLivingEntity) entity).masa_gadget_mod$setBrain(
+                            ((AccessorLivingEntity) entity).masa_gadget_mod$makeBrain(
+                                    new Dynamic<>(NbtOps.INSTANCE, tag.get("Brain"))));
+                    //#endif
                 }
             }
 

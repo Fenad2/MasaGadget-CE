@@ -1,0 +1,9 @@
+net.minecraft.world.entity.animal.horse.AbstractHorse net.minecraft.world.entity.animal.equine.AbstractHorse
+net.minecraft.world.entity.monster.Zombie net.minecraft.world.entity.monster.zombie.Zombie
+net.minecraft.world.entity.monster.ZombieVillager net.minecraft.world.entity.monster.zombie.ZombieVillager
+net.minecraft.world.entity.npc.AbstractVillager net.minecraft.world.entity.npc.villager.AbstractVillager
+net.minecraft.world.entity.npc.Villager net.minecraft.world.entity.npc.villager.Villager
+net.minecraft.world.entity.npc.VillagerProfession net.minecraft.world.entity.npc.villager.VillagerProfession
+net.minecraft.world.entity.vehicle.AbstractMinecartContainer net.minecraft.world.entity.vehicle.minecart.AbstractMinecartContainer
+fi.dy.masa.malilib.util.BlockUtils fi.dy.masa.malilib.util.game.BlockUtils
+fi.dy.masa.malilib.util.Color4f fi.dy.masa.malilib.util.data.Color4f

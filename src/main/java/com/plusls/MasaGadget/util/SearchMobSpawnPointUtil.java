@@ -17,7 +17,6 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.chunk.LevelChunk;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.lighting.LevelLightEngine;
-import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 import top.hendrixshen.magiclib.MagicLib;
 import top.hendrixshen.magiclib.api.compat.minecraft.network.chat.ComponentCompat;
@@ -77,8 +76,8 @@ public class SearchMobSpawnPointUtil {
             return;
         }
 
-        Vec3 centerPos = shapeDespawnSphere.getCenter();
-        BlockPos pos = new BlockPos((int) centerPos.x, (int) centerPos.y, (int) centerPos.z);
+        Object centerPos = shapeDespawnSphere.getCenter();
+        BlockPos pos = new BlockPos((int) coord(centerPos, "x"), (int) coord(centerPos, "y"), (int) coord(centerPos, "z"));
         SharedConstants.getLogger().warn("shape: {}", shapeDespawnSphere.getCenter());
         BlockPos spawnPos = null;
         int maxX = pos.getX() + 129;
@@ -90,8 +89,16 @@ public class SearchMobSpawnPointUtil {
         int maxSpawnLightLevel = fi.dy.masa.minihud.config.Configs.Generic.LIGHT_LEVEL_THRESHOLD.getIntegerValue();
         //#endif
         LevelLightEngine lightingProvider = level.getChunkSource().getLightEngine();
+        //#if MC >= 260200
+        //$$ EntityType<?> entityType = levelCompat.getDimensionLocation().equals(ResourceLocationCompat.withDefaultNamespace("the_nether")) ?
+        //$$         BuiltInRegistries.ENTITY_TYPE.getValue(ResourceLocationCompat.withDefaultNamespace("zombified_piglin")) :
+        //$$         BuiltInRegistries.ENTITY_TYPE.getValue(ResourceLocationCompat.withDefaultNamespace("creeper"));
+        //$$ EntityType<?> entityType2 = levelCompat.getDimensionLocation().equals(ResourceLocationCompat.withDefaultNamespace("the_nether")) ? null :
+        //$$         BuiltInRegistries.ENTITY_TYPE.getValue(ResourceLocationCompat.withDefaultNamespace("spider"));
+        //#else
         EntityType<?> entityType = levelCompat.getDimensionLocation().equals(ResourceLocationCompat.withDefaultNamespace("the_nether")) ? EntityType.ZOMBIFIED_PIGLIN : EntityType.CREEPER;
         EntityType<?> entityType2 = levelCompat.getDimensionLocation().equals(ResourceLocationCompat.withDefaultNamespace("the_nether")) ? null : EntityType.SPIDER;
+        //#endif
 
         for (int x = pos.getX() - 129; x <= maxX; ++x) {
             for (int z = pos.getZ() - 129; z <= maxZ; ++z) {
@@ -105,7 +112,7 @@ public class SearchMobSpawnPointUtil {
 
                 for (int y = Math.max(pos.getY() - 129, levelCompat.getMinBuildHeight() + 1); y <= maxY; ++y) {
                     if (squaredDistanceTo(x, y, z, centerPos) > 16384) {
-                        if (y > centerPos.y) {
+                        if (y > coord(centerPos, "y")) {
                             break;
                         } else {
                             continue;
@@ -173,10 +180,18 @@ public class SearchMobSpawnPointUtil {
         InfoUtil.displayChatMessage(text);
     }
 
-    private static double squaredDistanceTo(int x, int y, int z, Vec3 vec3d) {
-        double d = vec3d.x - x;
-        double e = vec3d.y - y;
-        double f = vec3d.z - z;
+    private static double squaredDistanceTo(int x, int y, int z, Object vec3d) {
+        double d = coord(vec3d, "x") - x;
+        double e = coord(vec3d, "y") - y;
+        double f = coord(vec3d, "z") - z;
         return d * d + e * e + f * f;
+    }
+
+    private static double coord(Object vector, String axis) {
+        try {
+            return vector.getClass().getField(axis).getDouble(vector);
+        } catch (ReflectiveOperationException e) {
+            throw new IllegalStateException("Unable to read vector coordinate " + axis, e);
+        }
     }
 }

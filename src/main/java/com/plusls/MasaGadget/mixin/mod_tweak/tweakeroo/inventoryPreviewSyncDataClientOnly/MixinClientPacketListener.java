@@ -31,6 +31,10 @@ public class MixinClientPacketListener {
             return;
         }
 
+        //#if MC >= 260200
+        //$$ minecraft.gui.setScreen(null);
+        //#else
         minecraft.setScreen(null);
+        //#endif
     }
 }

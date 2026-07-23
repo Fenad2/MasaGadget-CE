@@ -5,6 +5,11 @@ import com.plusls.MasaGadget.game.Configs;
 import com.plusls.MasaGadget.impl.mod_tweak.tweakeroo.inventoryPreviewSupportSelect.InventoryOverlayRenderHandler;
 import com.plusls.MasaGadget.util.ModId;
 import fi.dy.masa.malilib.render.InventoryOverlay;
+//#if MC >= 260100
+//$$ import fi.dy.masa.malilib.render.GuiContext;
+//#elseif MC > 11904
+//$$ import net.minecraft.client.gui.GuiGraphics;
+//#endif
 import net.minecraft.world.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -13,15 +18,14 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import top.hendrixshen.magiclib.api.dependency.annotation.Dependencies;
 import top.hendrixshen.magiclib.api.dependency.annotation.Dependency;
 
-//#if MC > 11904
-//$$ import net.minecraft.client.gui.GuiGraphics;
-//#endif
-
 @Dependencies(require = @Dependency(ModId.tweakeroo))
 @Mixin(value = InventoryOverlay.class, remap = false)
 public class MixinInventoryOverlay {
     @Inject(
-            //#if MC >= 12106
+            //#if MC >= 260100
+            //$$ method = "renderStackAt(Lfi/dy/masa/malilib/render/GuiContext;Lnet/minecraft/world/item/ItemStack;FFFDD)V",
+            //$$ remap = false,
+            //#elseif MC >= 12106
             //$$ method = "renderStackAt(Lnet/minecraft/client/gui/GuiGraphics;Lnet/minecraft/world/item/ItemStack;FFFLnet/minecraft/client/Minecraft;DD)V",
             //$$ remap = true,
             //#elseif MC > 12006
@@ -31,6 +35,9 @@ public class MixinInventoryOverlay {
             remap = true,
             //#endif
             at = @At("RETURN")
+            //#if MC >= 260100
+            //$$ , require = 0
+            //#endif
     )
     private static void addStackToolTip(CallbackInfo ci, @Local(argsOnly = true) ItemStack stack, @Local(ordinal = 0, argsOnly = true) float x, @Local(ordinal = 1, argsOnly = true) float y) {
         if (Configs.inventoryPreviewSupportSelect.getBooleanValue()) {

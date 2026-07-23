@@ -26,7 +26,9 @@ import top.hendrixshen.magiclib.impl.malilib.config.gui.SelectorDropDownList;
 //$$ import org.spongepowered.asm.mixin.injection.At;
 //#endif
 
-//#if MC > 11904
+//#if MC >= 12111
+//$$ import fi.dy.masa.malilib.render.GuiContext;
+//#elseif MC > 11904
 //$$ import net.minecraft.client.gui.GuiGraphics;
 //#elseif MC > 11404
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -64,7 +66,9 @@ public abstract class MixinGuiConfigBase extends GuiListBase<GuiConfigsBase.Conf
 
     @Override
     public void masa_gad_get$renderHovered(
-            //#if MC > 11904
+            //#if MC >= 12111
+            //$$ GuiContext guiContext,
+            //#elseif MC > 11904
             //$$ GuiGraphics poseStackOrGuiGraphics,
             //#elseif MC > 11502
             PoseStack poseStackOrGuiGraphics,
@@ -77,7 +81,9 @@ public abstract class MixinGuiConfigBase extends GuiListBase<GuiConfigsBase.Conf
         }
 
         this.masa_gadget$masaModGuiList.render(
-                //#if MC >= 12106
+                //#if MC >= 12111
+                //$$ guiContext,
+                //#elseif MC >= 12106
                 //$$ poseStackOrGuiGraphics,
                 //#endif
                 mouseX,
@@ -93,7 +99,9 @@ public abstract class MixinGuiConfigBase extends GuiListBase<GuiConfigsBase.Conf
         }
 
         this.drawHoveredWidget(
-                //#if MC >= 12106
+                //#if MC >= 12111
+                //$$ guiContext,
+                //#elseif MC >= 12106
                 //$$ poseStackOrGuiGraphics,
                 //#endif
                 mouseX,

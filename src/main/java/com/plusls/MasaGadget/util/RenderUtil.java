@@ -32,18 +32,38 @@ public class RenderUtil {
     }
 
     public static void drawLine(Vec3 pos1, Vec3 pos2, Color4f color) {
-        Vec3 camPos = Minecraft.getInstance().gameRenderer.getMainCamera().getPosition();
+        Vec3 camPos =
+                //#if MC >= 260200
+                //$$ Minecraft.getInstance().gameRenderer.mainCamera().position();
+                //#else
+                Minecraft.getInstance().gameRenderer.getMainCamera()
+                //#if MC >= 12111
+                //$$ .position()
+                //#else
+                .getPosition()
+                //#endif
+                ;
+                //#endif
         pos1 = pos1.subtract(camPos);
         pos2 = pos2.subtract(camPos);
-        //#if MC > 12104
+        //#if MC >= 260200
         //$$ RenderContext ctx = new RenderContext(
-        //$$         //#if MC >= 12107
-        //$$         //$$ () -> "masa_gadget:line",
-        //$$         //#endif
+        //$$         () -> "masa_gadget:line",
+        //$$         MaLiLibPipelines.DEBUG_LINES_MASA_SIMPLE_NO_DEPTH_NO_CULL,
+        //$$         0
+        //$$ );
+        //$$ BufferBuilder builder = ctx.getBuilder();
+        //#elseif MC >= 12106
+        //$$ RenderContext ctx = new RenderContext(
+        //$$         () -> "masa_gadget:line",
         //$$         MaLiLibPipelines.DEBUG_LINES_MASA_SIMPLE_NO_DEPTH_NO_CULL
-        //$$         //#if MC < 12106
-        //$$         , BufferUsage.STATIC_WRITE
-        //$$         //#endif
+        //$$ );
+        //$$ BufferBuilder builder = ctx.getBuilder();
+        //#elseif MC >= 12105
+        //$$ RenderContext ctx = new RenderContext(
+        //$$         () -> "masa_gadget:line",
+        //$$         MaLiLibPipelines.DEBUG_LINES_MASA_SIMPLE_NO_DEPTH_NO_CULL,
+        //$$         BufferUsage.STATIC_WRITE
         //$$ );
         //$$ BufferBuilder builder = ctx.getBuilder();
         //#else
@@ -56,8 +76,10 @@ public class RenderUtil {
         //#endif
         //#endif
         //#if MC > 12006
-        //$$ builder.addVertex((float) pos1.x(), (float) pos1.y(), (float) pos1.z()).setColor(color.r, color.g, color.b, color.a);
-        //$$ builder.addVertex((float) pos2.x(), (float) pos2.y(), (float) pos2.z()).setColor(color.r, color.g, color.b, color.a);
+        //$$ builder.addVertex((float) pos1.x(), (float) pos1.y(), (float) pos1.z())
+        //$$         .setColor(color.r, color.g, color.b, color.a);
+        //$$ builder.addVertex((float) pos2.x(), (float) pos2.y(), (float) pos2.z())
+        //$$         .setColor(color.r, color.g, color.b, color.a);
         //#if MC > 12104
         //$$
         //$$ try {
@@ -82,18 +104,38 @@ public class RenderUtil {
     }
 
     public static void drawOutlineBox(Vec3 pos, double expend, Color4f color) {
-        Vec3 camPos = Minecraft.getInstance().gameRenderer.getMainCamera().getPosition();
+        Vec3 camPos =
+                //#if MC >= 260200
+                //$$ Minecraft.getInstance().gameRenderer.mainCamera().position();
+                //#else
+                Minecraft.getInstance().gameRenderer.getMainCamera()
+                //#if MC >= 12111
+                //$$ .position()
+                //#else
+                .getPosition()
+                //#endif
+                ;
+                //#endif
         pos = pos.subtract(camPos);
 
-        //#if MC > 12104
+        //#if MC >= 260200
         //$$ RenderContext ctx = new RenderContext(
-        //$$         //#if MC >= 12107
-        //$$         //$$ () -> "masa_gadget:outline_box",
-        //$$         //#endif
+        //$$         () -> "masa_gadget:outline_box",
+        //$$         MaLiLibPipelines.DEBUG_LINES_MASA_SIMPLE_NO_DEPTH_NO_CULL,
+        //$$         0
+        //$$ );
+        //$$ BufferBuilder builder = ctx.getBuilder();
+        //#elseif MC >= 12106
+        //$$ RenderContext ctx = new RenderContext(
+        //$$         () -> "masa_gadget:outline_box",
         //$$         MaLiLibPipelines.DEBUG_LINES_MASA_SIMPLE_NO_DEPTH_NO_CULL
-        //$$         //#if MC < 12106
-        //$$         , BufferUsage.STATIC_WRITE
-        //$$         //#endif
+        //$$ );
+        //$$ BufferBuilder builder = ctx.getBuilder();
+        //#elseif MC >= 12105
+        //$$ RenderContext ctx = new RenderContext(
+        //$$         () -> "masa_gadget:outline_box",
+        //$$         MaLiLibPipelines.DEBUG_LINES_MASA_SIMPLE_NO_DEPTH_NO_CULL,
+        //$$         BufferUsage.STATIC_WRITE
         //$$ );
         //$$ BufferBuilder builder = ctx.getBuilder();
         //#else
@@ -113,6 +155,9 @@ public class RenderUtil {
                 (float) (pos.y() + expend),
                 (float) (pos.z() + expend),
                 color,
+                //#if MC >= 12111
+                //$$ 1.0F,
+                //#endif
                 builder
         );
         //#if MC > 12104

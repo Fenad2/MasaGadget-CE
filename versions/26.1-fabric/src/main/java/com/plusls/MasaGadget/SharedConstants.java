@@ -15,35 +15,15 @@ import top.hendrixshen.magiclib.impl.malilib.config.MagicConfigHandlerImpl;
 import top.hendrixshen.magiclib.util.VersionUtil;
 
 public class SharedConstants {
-    @Getter
-    private static final String modIdentifier = "masa_gadget_mod";
-    @Getter
-    private static final String modName = "Masa Gadget";
-    @Getter
-    private static final String modVersion = "@MOD_VERSION@";
-    @Getter
-    private static final String modVersionType = VersionUtil.getVersionType(SharedConstants.modVersion);
-    @Getter
-    private static final MagicConfigManager configManager = GlobalConfigManager.getConfigManager(SharedConstants.getModIdentifier());
-    @Getter
-    private static final MagicConfigHandler configHandler = new MagicConfigHandlerImpl(configManager, 1);
-    @Getter
-    private static final Logger logger = LogManager.getLogger(SharedConstants.modIdentifier);
-
-    public static @NotNull String getTranslatedModVersionType() {
-        return VersionUtil.translateVersionType(SharedConstants.modVersion);
-    }
-
-    @Contract("_ -> new")
-    public static @NotNull Identifier id(String path) {
-        return ResourceLocationCompat.fromNamespaceAndPath(SharedConstants.modIdentifier, path);
-    }
-
-    public static String tr(String key) {
-        return I18n.tr(SharedConstants.modIdentifier.concat(".").concat(key));
-    }
-
-    public static String tr(String key, Object... objects) {
-        return I18n.tr(SharedConstants.modIdentifier.concat(".").concat(key), objects);
-    }
+    @Getter private static final String modIdentifier = "masa_gadget_mod";
+    @Getter private static final String modName = "Masa Gadget";
+    @Getter private static final String modVersion = "@MOD_VERSION@";
+    @Getter private static final String modVersionType = VersionUtil.getVersionType(modVersion);
+    @Getter private static final MagicConfigManager configManager = GlobalConfigManager.getConfigManager(getModIdentifier());
+    @Getter private static final MagicConfigHandler configHandler = new MagicConfigHandlerImpl(configManager, 1);
+    @Getter private static final Logger logger = LogManager.getLogger(modIdentifier);
+    public static @NotNull String getTranslatedModVersionType() { return VersionUtil.translateVersionType(modVersion); }
+    @Contract("_ -> new") public static @NotNull Identifier id(String path) { return ResourceLocationCompat.fromNamespaceAndPath(modIdentifier, path); }
+    public static String tr(String key) { return I18n.tr(modIdentifier.concat(".").concat(key)); }
+    public static String tr(String key, Object... objects) { return I18n.tr(modIdentifier.concat(".").concat(key), objects); }
 }

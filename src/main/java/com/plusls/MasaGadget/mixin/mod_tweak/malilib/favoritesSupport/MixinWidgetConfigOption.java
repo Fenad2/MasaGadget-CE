@@ -27,12 +27,31 @@ public abstract class MixinWidgetConfigOption extends WidgetConfigOptionBase<Gui
     }
 
     @Inject(method = "addConfigOption", at = @At("HEAD"))
-    private void addFavoritesButton(int x, int y, float zLevel, int labelWidth, int configWidth, IConfigBase config, CallbackInfo ci) {
+    private void addFavoritesButton(
+            int x, int y,
+            //#if MC < 12110
+            float zLevel,
+            //#endif
+            int labelWidth, int configWidth, IConfigBase config, CallbackInfo ci
+    ) {
         if (!Configs.favoritesSupport.getBooleanValue()) {
             return;
         }
 
+//        //真的烦预编译条件
+//        //#if MC >= 260200
+//        Screen screen = Minecraft.getInstance().gui.screen();
+//        //#else
+//        Screen screen = Minecraft.getInstance().screen;
+//        //#endif
+
+        //#if MC >= 260200
+        //$$ Screen screen = Minecraft.getInstance().gui.screen();
+        //#else
         Screen screen = Minecraft.getInstance().screen;
+        //#endif
+
+
 
         if (!(screen instanceof GuiConfigsBase)) {
             return;

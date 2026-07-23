@@ -90,7 +90,7 @@ ext {
     }
 
     getFixedModVersion = {
-        return "CE-1.0.3" //版本号！
+        return "CE-1.0.5" //版本号！
     }
 
     getVersionGit = { List paths ->

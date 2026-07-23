@@ -29,6 +29,9 @@ public abstract class MixinWidgetConfigOption extends WidgetConfigOptionBase<Gui
                     value = "INVOKE",
                     target = "Lfi/dy/masa/malilib/gui/widgets/WidgetConfigOption;addLabel(IIIII[Ljava/lang/String;)V"
             )
+            //#if MC >= 260100
+            //$$ , require = 0
+            //#endif
     )
     private void readdBetterLabel(WidgetConfigOption instance, int x, int y, int zLevel, int labelWidth, int configWidth, String[] lines, Operation<Void> original, @Local IConfigBase config, @Share("showOriginalTextsThisTime") LocalBooleanRef showOriginalTextsThisTime) {
         if (!Configs.showOriginalConfigName.getBooleanValue() || lines.length != 1) {
@@ -59,6 +62,9 @@ public abstract class MixinWidgetConfigOption extends WidgetConfigOptionBase<Gui
                     target = "Lfi/dy/masa/malilib/gui/widgets/WidgetConfigOption;addConfigComment(IIIILjava/lang/String;)V"
             ),
             index = 1
+            //#if MC >= 260100
+            //$$ , require = 0
+            //#endif
     )
     private int tweakCommentYOffset(int y, @Share("showOriginalTextsThisTime") LocalBooleanRef showOriginalTextsThisTime) {
         if (showOriginalTextsThisTime.get()) {
@@ -77,6 +83,9 @@ public abstract class MixinWidgetConfigOption extends WidgetConfigOptionBase<Gui
             ),
             index = 3,
             remap = false
+            //#if MC >= 260100
+            //$$ , require = 0
+            //#endif
     )
     private int tweakCommentHeight(int height, @Share("showOriginalTextsThisTime") LocalBooleanRef showOriginalTextsThisTime) {
         if (showOriginalTextsThisTime.get()) {

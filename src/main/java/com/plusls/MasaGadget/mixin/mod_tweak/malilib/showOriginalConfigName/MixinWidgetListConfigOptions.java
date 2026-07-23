@@ -26,6 +26,9 @@ public abstract class MixinWidgetListConfigOptions extends WidgetListConfigOptio
                     target = "Ljava/lang/Math;max(II)I",
                     shift = At.Shift.AFTER
             )
+            //#if MC >= 260100
+            //$$ , require = 0
+            //#endif
     )
     private int recalcMaxNameLength(int width, @Local GuiConfigsBase.ConfigOptionWrapper wrapper) {
         if (Configs.showOriginalConfigName.getBooleanValue()) {

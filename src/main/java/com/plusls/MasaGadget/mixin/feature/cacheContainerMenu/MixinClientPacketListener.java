@@ -50,7 +50,13 @@ public class MixinClientPacketListener {
 
         if (containerId != 0 && containerId != -1 && containerId != -2 &&
                 (clientboundContainerSetSlotPacket.getContainerId() == localPlayer.containerMenu.containerId ||
-                        !(minecraft.screen instanceof CreativeModeInventoryScreen))) {
+                        !(
+                                //#if MC >= 260200
+                                //$$ minecraft.gui.screen()
+                                //#else
+                                minecraft.screen
+                                //#endif
+                                instanceof CreativeModeInventoryScreen))) {
             if (CacheContainerMenuHandler.getInstance().isAvailableMenu()) {
                 Container container = CacheContainerMenuHandler.getInstance().getLastClickContainer();
 
