@@ -20,6 +20,9 @@ public class MixinWidgetListBase {
     //$$                 value = "INVOKE",
     //$$                 target = "Ljava/lang/String;contains(Ljava/lang/CharSequence;)Z"
     //$$         )
+    //#if MC >= 260100
+    //$$     , require = 0
+    //#endif
     //$$ )
     //$$ private boolean patchMatchLogic(String instance, CharSequence s, Operation<Boolean> original) {
     //$$     if (Configs.pinyinSouSuo.getBooleanValue() && PinInHelper.getInstance().contains(instance, s.toString())) {

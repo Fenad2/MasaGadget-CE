@@ -120,13 +120,23 @@ public class FastMasaGuiSwitcher {
                     return;
                 }
 
-                Screen screen = configScreenFactoryCompat.create(mc.screen);
+                Screen screen = configScreenFactoryCompat.create(
+                        //#if MC >= 260200
+                        //$$ mc.gui.screen()
+                        //#else
+                        mc.screen
+                        //#endif
+                );
 
                 if (!(screen instanceof GuiConfigsBase)) {
                     return;
                 }
 
+                //#if MC >= 260100
+                //$$ String modName = this.getDisplayModName(metadata);
+                //#else
                 String modName = metadata.getName();
+                //#endif
 
                 if (!this.guiClass.containsKey(screen.getClass())) {
                     this.guiModName.put(configScreenFactoryCompat, () -> modName);
@@ -216,5 +226,15 @@ public class FastMasaGuiSwitcher {
     public ModMenuApiCompat.ConfigScreenFactoryCompat<?> getConfigScreenFactory(IStringValue modName) {
         return this.guiModName.inverse().get(modName);
     }
+    //#endif
+
+    //#if MC >= 260100 && FABRIC_LIKE
+    //$$ private String getDisplayModName(ModMetadata metadata) {
+    //$$     if (SharedConstants.getModIdentifier().equals(metadata.getId())) {
+    //$$         return SharedConstants.getModName();
+    //$$     }
+    //$$
+    //$$     return metadata.getName();
+    //$$ }
     //#endif
 }

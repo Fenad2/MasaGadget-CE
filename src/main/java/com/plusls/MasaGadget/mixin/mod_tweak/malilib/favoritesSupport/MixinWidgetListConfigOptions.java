@@ -29,7 +29,12 @@ public abstract class MixinWidgetListConfigOptions extends WidgetListConfigOptio
     private void filterFavorites(GuiConfigsBase.ConfigOptionWrapper entry, CallbackInfoReturnable<List<String>> cir) {
         if (Configs.favoritesSupport.getBooleanValue() && MalilibFavoritesData.getInstance().isFilterSwitch()) {
             IConfigBase config = entry.getConfig();
-            Screen screen = Minecraft.getInstance().screen;
+            Screen screen =
+                    //#if MC >= 260200
+                    //$$ Minecraft.getInstance().gui.screen();
+                    //#else
+                    Minecraft.getInstance().screen;
+                    //#endif
 
             if (!(screen instanceof GuiConfigsBase)) {
                 return;
@@ -48,7 +53,12 @@ public abstract class MixinWidgetListConfigOptions extends WidgetListConfigOptio
     @Override
     protected void addNonFilteredContents(Collection<GuiConfigsBase.ConfigOptionWrapper> placements) {
         if (Configs.favoritesSupport.getBooleanValue() && MalilibFavoritesData.getInstance().isFilterSwitch()) {
-            Screen screen = Minecraft.getInstance().screen;
+            Screen screen =
+                    //#if MC >= 260200
+                    //$$ Minecraft.getInstance().gui.screen();
+                    //#else
+                    Minecraft.getInstance().screen;
+                    //#endif
 
             if (!(screen instanceof GuiConfigsBase)) {
                 return;

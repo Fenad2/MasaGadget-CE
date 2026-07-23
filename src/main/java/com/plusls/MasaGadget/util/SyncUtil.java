@@ -37,7 +37,11 @@ public class SyncUtil {
         return localEntity == null ? entity : localEntity;
     }
 
-    @SuppressWarnings("unchecked")
+    //#if MC < 260100
+    //$$ @SuppressWarnings("unchecked")
+    //#endif
+    //#if MC < 260100
+    //$$
     public static <T extends Entity> T getEntityDataFromIntegratedServer(Entity entity, Class<T> entityClass) {
         IntegratedServer server = Minecraft.getInstance().getSingleplayerServer();
 
@@ -66,4 +70,5 @@ public class SyncUtil {
 
         return (T) localEntity;
     }
+    //#endif
 }
